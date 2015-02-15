@@ -1,0 +1,27 @@
+﻿@model Conference.Models.CreateAccount
+
+@{
+	ViewBag.Title = "Login";
+	String returnUrl = ViewBag.ReturnUrl;
+}
+@using (Html.BeginForm()) {
+	@Html.ValidationSummary()
+	@Html.Hidden("ReturnUrl", returnUrl)
+	<div>
+		@Html.LabelFor(m => m.UserName)
+		@Html.EditorFor(m => m.UserName)
+	</div>
+	<div>
+		@Html.LabelFor(m => m.Password)
+		@Html.EditorFor(m => m.Password)
+	</div>
+	<div>
+		@Html.LabelFor(m => m.ConfirmPassword)
+		@Html.EditorFor(m => m.ConfirmPassword)
+	</div>
+	<div>
+		@Html.LabelFor(m => m.Email)
+		@Html.EditorFor(m => m.Email)
+	</div>
+	<button type="submit">Create Account</button>
+}

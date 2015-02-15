@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Conference.Models.Speaker>
+
+<div id="speakers-container">
+@foreach(var speaker in Model) {
+	<div>@Html.ActionLink(speaker.ToString(), "Details", new { id = speaker.SpeakerID })</div>
+	<div style="margin-left:5px;">
+		@Html.Action("_SpeakerSessions", "Session", new { speakerID = speaker.SpeakerID })		
+	</div>
+}
+</div>
+
+<script>
+	$(function () { $("#speakers-container").accordion(); });//Short cut for document.ready
+</script>

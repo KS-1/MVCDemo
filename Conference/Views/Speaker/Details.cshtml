@@ -1,0 +1,11 @@
+﻿@model Conference.Models.Speaker
+<div>
+	Pabe last ran at : @DateTime.Now.ToLongTimeString()
+</div>
+<div>
+	<a href="mailto:@Model.Email">@Model.ToString()</a>
+</div>
+<div>
+	<strong>Sessions:</strong>
+	@Html.Action("_SpeakerSessions", "Session", new { speakerID = Model.SpeakerID })
+</div>

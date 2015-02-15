@@ -1,0 +1,28 @@
+﻿<h2>Hello, world!</h2>
+
+<script>
+	function loadData() {
+		// grab the speaker
+		$.ajax({
+			type: "POST",
+			url: "/WebServices/SpeakerService.svc/Get",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: receivedSpeaker,
+			error: receivedFailure
+		});
+	}
+
+	function receivedSpeaker(result) {
+		alert("Here");
+		//var speaker = result.d;
+		//var outputString = speaker.FirstName + " " + speaker.LastName;
+		//$("#output").text(outputString);
+	}
+
+	function receivedFailure(xhr, textStatus, errorThrown) {
+		alert(xhr.responseText);
+	}
+</script>
+<span id="output"></span>
+<button type="button" onclick="loadData();">Call Service</button>

@@ -1,0 +1,8 @@
+﻿@model Conference.Models.Session
+
+<div>
+	@Model.Abstract
+</div>
+<div>
+	@Html.Action("_Index", "Comment", new { sessionID = Model.SessionID })
+</div>

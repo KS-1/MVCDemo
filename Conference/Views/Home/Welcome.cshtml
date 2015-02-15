@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Welcome";
+	String name = ViewBag.Name;
+}
+
+@if(String.IsNullOrEmpty(name)) {
+	<span>Welcome new user</span>
+} else {
+	<span>Welcome back, @name</span>
+}
+
+@using(Html.BeginForm("StoreName", "Home")) {
+	@Html.AntiForgeryToken()
+
+	<label for="name">Name:</label>
+	<input type="text" id="Name" name="Name" />
+	<button type="submit">Save Name</button>
+}

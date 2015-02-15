@@ -1,0 +1,27 @@
+﻿@model Conference.Models.LoginAccount
+
+@{
+	ViewBag.Title = "Login";
+	String returnUrl = ViewBag.ReturnUrl;
+}
+@using (Html.BeginForm()) {
+	@Html.AntiForgeryToken()
+	@Html.ValidationSummary()
+	@Html.Hidden("ReturnUrl", returnUrl)
+	<div>
+		@Html.LabelFor(m => m.UserName)
+		@Html.EditorFor(m => m.UserName)
+	</div>
+	<div>
+		@Html.LabelFor(m => m.Password)
+		@Html.EditorFor(m => m.Password)
+	</div>
+	<div>
+		@Html.LabelFor(m => m.Persist)
+		@Html.EditorFor(m => m.Persist)
+	</div>
+	<button type="submit">Login</button>
+}
+<div>
+	@Html.ActionLink("Create account", "Register", new { returnUrl = returnUrl })
+</div>

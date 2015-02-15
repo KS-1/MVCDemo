@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Conference.Models.Session>
+
+@foreach(var session in Model) {
+	<div>
+		@Html.ActionLink(session.Title, "Details", new { id = session.SessionID })
+	</div>
+}

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Conference.Models.Comment>
+
+@*<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.8.0.min.js" type="text/javascript"></script> 
+<script src="http://ajax.aspnetcdn.com/ajax/mvc/3.0/jquery.unobtrusive-ajax.js" type="text/javascript"></script>
+
+@using (Ajax.BeginForm("_CreateSubmit", "Comment",
+			new { SessionID = ViewBag.SessionID }, // route data. Pass in the SessionID
+			new AjaxOptions() { UpdateTargetId = "comments-container" }
+			)) {
+	<div id="comments-container">
+		<ul>
+			@foreach (var comment in Model) {
+				<li>@Html.Raw(comment.Content.Replace("\n", "<br />\n"))</li>
+			}
+		</ul>
+
+		@Html.Action("_CreateForm", new { sessionID = ViewBag.SessionID })
+	</div>
+}
+*@
+	<link href="~/Content/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+
+<script>
+	$(function () {
+		var commentHub = $.connection.commentHub;
+
+		// register the update method so the server can call this
+		commentHub.client.update = function (content) {
+			var listItem = "<li>" + content + "</li>";
+			$("#comments-list").append(listItem);
+		};
+
+		$.connection.hub.start().done(function () {
+			commentHub.server.register("@ViewBag.SessionID");
+
+			$("#submit").click(function() {
+				commentHub.server.postComment($("#comment").val(), "@ViewBag.SessionID");
+			})
+		});
+	});
+</script>
+
+<ul id="comments-list">
+	@foreach(var comment in Model) {
+		<li>@comment.Content</li>
+	}
+</ul>
+<div>
+	Comment: <input type="text" id="comment" />
+	<button type="button" id="submit">Submit Comment</button>
+</div>
